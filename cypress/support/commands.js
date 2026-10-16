@@ -32,7 +32,12 @@ Cypress.Commands.add('login', (email, senha) => {
 
 Cypress.Commands.add('AdicionarLivro', (titulo, autor, categoria, copias) => {
     cy.get('.btn-success').click()
-    cy.get('#book-title').clear().type(titulo, {force: true})
+    
+    // Acrescente apenas estas linhas para proteger o campo vazio:
+    if (titulo && titulo.trim() !== "") {
+        cy.get('#book-title').clear().type(titulo, {force: true})
+    }
+    
     cy.get('#book-author').clear().type(autor)
     cy.get('#book-category').select(categoria)
     cy.get('#book-copies').clear().type(copias)

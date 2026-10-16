@@ -62,3 +62,8 @@ Then(`deve aparecer uma mensagem: {string}`, (mensagem) => {
         expect($div.text().trim()).to.contain(mensagem);
     });
 });
+
+Then(`o formulário de cadastro deve continuar aberto`, () => {
+    // Como o navegador barrou o envio por falta do título, o botão de salvar continua na tela
+    cy.get('#save-book-btn').should('be.visible');
+});
