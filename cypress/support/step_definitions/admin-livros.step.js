@@ -45,3 +45,20 @@ Then(`deve aparecer uma mensagem de exclusão: {string}`, (mensagem) => {
         expect($div.text().trim()).to.contain(mensagem);
     });
 });
+
+When(`eu adiciono novos livros com os seguintes dados:`, (dataTable) => {
+    const books = dataTable.hashes()
+    books.forEach(book => {
+        cy.AdicionarLivro(book.titulo, book.autor, book.categoria, book.exemplares)
+    });
+});
+
+When(`eu adiciono livro com {string}, {string}, {string} e {string}`, (titulo, autor, categoria, exemplares) => {
+    cy.AdicionarLivro(titulo, autor, categoria, exemplares)
+});
+
+Then(`deve aparecer uma mensagem: {string}`, (mensagem) => {
+    cy.get('#alert-container').should(($div) => {
+        expect($div.text().trim()).to.contain(mensagem);
+    });
+});
